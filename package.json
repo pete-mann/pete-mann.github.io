@@ -1,0 +1,19 @@
+{
+  "name": "pete-mann.github.io",
+  "version": "1.0.0",
+  "description": "Pete Mann portfolio",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pete-mann/pete-mann.github.io.git"
+  },
+  "author": "pete-mann",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pete-mann/pete-mann.github.io/issues"
+  },
+  "homepage": "https://github.com/pete-mann/pete-mann.github.io#readme"
+}
