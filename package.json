@@ -15,5 +15,10 @@
   "bugs": {
     "url": "https://github.com/pete-mann/pete-mann.github.io/issues"
   },
-  "homepage": "https://github.com/pete-mann/pete-mann.github.io#readme"
+  "homepage": "https://github.com/pete-mann/pete-mann.github.io#readme",
+  "dependencies": {
+    "angular": "^1.6.7",
+    "angular-ui-router": "^0.4.3",
+    "jquery": "^3.2.1"
+  }
 }
