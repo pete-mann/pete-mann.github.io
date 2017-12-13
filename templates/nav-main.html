@@ -4,9 +4,9 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarColor01">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item" ng-class="{ 'active': page.active }" ng-repeat="page in pages">
+      <li class="nav-item" ng-class="{'active': page.active}" ng-repeat="page in pages">
         <a href="javascript:void(0)" class="nav-link" ng-click="navigate(page)" ui-sref-active="active"> {{page.menuName}}
-          <i class="far" ng-class="page.icon"></i>
+          <i ng-class="page.icon"></i>
           <span class="sr-only" ng-if="page.active == true">(current)</span>
         </a>
       </li>

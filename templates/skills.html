@@ -1,11 +1,16 @@
-<ul class="nav nav-tabs">
-  <li class="nav-item">
-    <a class="nav-link active" data-toggle="tab" href="#home">Front End</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link active" data-toggle="tab" href="#home">Back End</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link active" data-toggle="tab" href="#home">Data Persistence</a>
-  </li>
-</ul>
+<div class="row">
+  <div class="col-sm-12"><h1><i class="fas fa-code"></i> My Skills</h1></div>
+  <div class="col-sm-3">
+    <ul class="list-group">
+      <a href="javascript:void(0)"
+         class="list-group-item list-group-item-action"
+         ng-class="{'active': tab.active}"
+         ng-repeat="tab in tabs"
+         ng-click="selectTab(tab)">{{tab.tabName}}</a>
+    </ul>
+  </div>
+  <div class="col-sm-9">
+    <h1>Test</h1>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae iusto, modi voluptates exercitationem rem expedita placeat numquam eius blanditiis odit laborum, deserunt velit dolores. Neque voluptas, aliquam quas dolorum dicta.</p>
+  </div>
+</div>

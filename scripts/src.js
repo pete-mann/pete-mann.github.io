@@ -31,17 +31,17 @@ app.directive('navMain', function($state){
       $scope.pages = [
         {
           menuName: 'About me',
-          icon: 'fa-hand-spock',
+          icon: 'far fa-hand-spock',
           url: 'about',
           active: true
         }, {
           menuName: 'My skills',
-          icon: 'fa-comment-alt',
+          icon: 'fas fa-code',
           url: 'skills',
           active: false
         }, {
           menuName: 'Contact me',
-          icon: 'fa-comment-alt',
+          icon: 'far fa-comment-alt',
           url: 'contact',
           active: false
         }
@@ -77,6 +77,29 @@ app.directive('skills', function(){
     templateUrl: 'templates/skills.html',
     link: function($scope) {
 
+      $scope.tabs = [
+        {
+          id: 'frontEnd',
+          tabName: 'Front End',
+          actiave: true
+        }, {
+          id: 'backEnd',
+          tabName: 'Back End',
+          actiave: false
+        }, {
+          id: 'dataPersistence',
+          tabName: 'Data Persistence',
+          actiave: false
+        }
+      ];
+
+      $scope.selectTab = function(tab){
+        $scope.tabs.forEach(function(tab){
+          tab.active = false;
+        });
+        tab.active = true;
+      }
+
     }
   }
 });
@@ -85,7 +108,7 @@ app.directive('contact', function(){
   return {
     restrict: 'E',
     replace: true,
-    template: 'templates/contact.html',
+    templateUrl: 'templates/contact.html',
     link: function($scope) {
 
     }
