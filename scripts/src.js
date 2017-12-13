@@ -25,7 +25,7 @@ app.directive('navMain', function($state){
   return {
     restrict: 'E',
     replace: true,
-    template: 'templates/nav-main.html',
+    templateUrl: 'templates/nav-main.html',
     link: function($scope) {
 
       $scope.pages = [
@@ -63,7 +63,7 @@ app.directive('about', function(){
   return {
     restrict: 'E',
     replace: true,
-    template: 'templates/about.html',
+    templateUrl: 'templates/about.html',
     link: function($scope) {
 
     }
