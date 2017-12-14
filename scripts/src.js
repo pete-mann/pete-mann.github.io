@@ -70,11 +70,7 @@ app.factory('aboutAnimation', function($interval) {
           watcher(_text);
         });
       },
-      _texts = [
-        'Hello, world!',
-        'I\'m a software Engineer',
-        'I love to code'
-      ],
+      _texts = [],
       _animation = null,
       _text = '',
       _curTextIndex = 0,
@@ -98,6 +94,9 @@ app.factory('aboutAnimation', function($interval) {
     registerWatcher: function(watcher) {
       _watchers.push(watcher);
     },
+    setTexts: function(texts) {
+      _texts = texts;
+    }
     start: function() {
       _animation = $interval(function() {
         _text = _texts[_curTextIndex].slice(0, _curTextCharIndex);
@@ -160,6 +159,12 @@ app.directive('about', function(aboutAnimation) {
     replace: true,
     templateUrl: 'templates/about.html',
     link: function($scope) {
+
+      aboutAnimation.setTexts([
+        'Hello, world!',
+        'I\'m a software Engineer',
+        'I love to code'
+      ]);
 
       aboutAnimation.registerWatcher(function(text) {
         $scope.animatedText = text;
