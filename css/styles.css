@@ -23,3 +23,15 @@ html, body {
 [ui-view].ng-leave-active {
   opacity: 0;
 }
+
+@media (min-width: 2px) {
+  .navbar-expand-lg {
+    -webkit-box-orient: horizontal !important;
+    -webkit-box-direction: normal !important;
+    -ms-flex-flow: row nowrap !important;
+    flex-flow: row nowrap !important;
+    -webkit-box-pack: start !important;
+    -ms-flex-pack: start !important;
+    justify-content: flex-start !important;
+  }
+}
