@@ -8,8 +8,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
     name: 'about',
     url: '/about',
     template: '<about></about>',
-    onExit: function(aboutAnimation) {
-      aboutAnimation.stop();
+    onExit: function(aboutTextAnimationFactory) {
+      aboutTextAnimationFactory.stop();
     }
   })
   .state({
@@ -24,15 +24,15 @@ app.config(function($stateProvider, $urlRouterProvider) {
   })
 });
 
-app.run(function($rootScope, $state, menuMain) {
+app.run(function($rootScope, $state, navMainFactory) {
 
   $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams){
-    menuMain.setActivePage(toState);
+    navMainFactory.setActivePage(toState);
   });
 
 });
 
-app.factory('menuMain', function($state) {
+app.factory('navMainFactory', function($state) {
 
   var _watchers = [],
       _callWatchers = function() {
@@ -62,7 +62,7 @@ app.factory('menuMain', function($state) {
   }
 })
 
-app.factory('aboutAnimation', function($interval) {
+app.factory('aboutTextAnimationFactory', function($interval) {
 
   var _watchers = [],
       _callWatchers = function() {
@@ -96,7 +96,7 @@ app.factory('aboutAnimation', function($interval) {
     },
     setTexts: function(texts) {
       _texts = texts;
-    }
+    },
     start: function() {
       _animation = $interval(function() {
         _text = _texts[_curTextIndex].slice(0, _curTextCharIndex);
@@ -116,18 +116,18 @@ app.factory('aboutAnimation', function($interval) {
   }
 })
 
-app.directive('navMain', function(menuMain) {
+app.directive('navMain', function(navMainFactory) {
   return {
     restrict: 'E',
     replace: true,
     templateUrl: 'templates/nav-main.html',
     link: function($scope) {
 
-      menuMain.registerWatcher(function(pages) {
+      navMainFactory.registerWatcher(function(pages) {
         $scope.pages = pages;
       });
 
-      menuMain.setPages([
+      navMainFactory.setPages([
         {
           menuName: 'About me',
           icon: 'far fa-hand-spock',
@@ -146,13 +146,13 @@ app.directive('navMain', function(menuMain) {
         }
       ]);
 
-      $scope.navigate = menuMain.navigate;
+      $scope.navigate = navMainFactory.navigate;
 
     }
   }
 });
 
-app.directive('about', function(aboutAnimation) {
+app.directive('about', function(aboutTextAnimationFactory) {
 
   return {
     restrict: 'E',
@@ -160,17 +160,17 @@ app.directive('about', function(aboutAnimation) {
     templateUrl: 'templates/about.html',
     link: function($scope) {
 
-      aboutAnimation.setTexts([
-        'Hello, world!',
-        'I\'m a software Engineer',
+      aboutTextAnimationFactory.setTexts([
+        'Hello World!',
+        'I\'m a software engineer',
         'I love to code'
       ]);
 
-      aboutAnimation.registerWatcher(function(text) {
+      aboutTextAnimationFactory.registerWatcher(function(text) {
         $scope.animatedText = text;
       });
 
-      aboutAnimation.start();
+      aboutTextAnimationFactory.start();
 
     }
   }
