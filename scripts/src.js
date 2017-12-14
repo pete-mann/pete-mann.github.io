@@ -1,4 +1,4 @@
-var app = angular.module('app', ['ui.router']);
+var app = angular.module('app', ['ui.router', 'ngAnimate']);
 
 app.config(function($stateProvider, $urlRouterProvider) {
 
@@ -183,27 +183,88 @@ app.directive('skills', function() {
     templateUrl: 'templates/skills.html',
     link: function($scope) {
 
-      $scope.tabs = [
-        {
-          id: 'frontEnd',
-          tabName: 'Front End',
-          actiave: true
-        }, {
-          id: 'backEnd',
-          tabName: 'Back End',
-          actiave: false
-        }, {
-          id: 'dataPersistence',
-          tabName: 'Data Persistence',
-          actiave: false
+      $scope.skills = {
+        frontEnd: {
+          text: 'I like Bootstrap',
+          skillsList: [
+            {
+              icon: 'fab fa-html5',
+              text: 'HTML'
+            }, {
+              icon: 'fab fa-css3-alt',
+              text: 'CSS'
+            }, {
+              icon: 'fab fa-less',
+              text: 'LESS'
+            }, {
+              icon: 'fab fa-angular',
+              text: 'Angular 1'
+            }, {
+              icon: '',
+              text: 'Bootstrap 3'
+            }, {
+              icon: '',
+              text: 'jQuery'
+            }, {
+              icon: 'fab fa-js',
+              text: 'Javascript'
+            }, {
+              icon: 'fab fa-html5',
+              text: 'HTML'
+            }, {
+              icon: 'fab fa-npm',
+              text: 'NPM'
+            }
+          ]
+        },
+        backEnd: {
+          text: 'I like Expressjs',
+          skillsList: [
+            {
+              icon: 'fab fa-node',
+              text: 'Node JS'
+            }, {
+              icon: '',
+              text: 'Express JS'
+            }, {
+              icon: 'fab fa-linux',
+              text: 'Unix & Linux'
+            }, {
+              icon: 'fab fa-github',
+              text: 'Github & GIT'
+            }, {
+              icon: 'fab fa-docker',
+              text: 'Docker & Vagrant'
+            }, {
+              icon: 'fab fa-digital-ocean',
+              text: 'Digital Ocean'
+            }, {
+              icon: '',
+              text: 'PHP'
+            }, {
+              icon: '',
+              text: 'MYSQL'
+            }, {
+              icon: '',
+              text: 'MongoDB'
+            }, {
+              icon: '',
+              text: 'Apache'
+            }, {
+              icon: '',
+              text: 'Nginx'
+            }
+          ]
+        },
+        devOps: {
+          text: 'I like Nodejs',
+          skillsList: [
+            {
+              icon: 'fab fa-node',
+              text: 'Node JS'
+            }
+          ]
         }
-      ];
-
-      $scope.selectTab = function(tab){
-        $scope.tabs.forEach(function(tab){
-          tab.active = false;
-        });
-        tab.active = true;
       }
 
     }
