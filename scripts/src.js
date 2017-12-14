@@ -7,7 +7,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
   $stateProvider.state({
     name: 'about',
     url: '/about',
-    template: '<about></about>'
+    template: '<about></about>',
+    onExit: function(aboutAnimation) {
+      aboutAnimation.stop();
+    }
   })
   .state({
     name: 'skills',
@@ -21,7 +24,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
   })
 });
 
-app.run(function($rootScope, $state, menuMain){
+app.run(function($rootScope, $state, menuMain) {
 
   $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams){
     menuMain.setActivePage(toState);
@@ -29,7 +32,7 @@ app.run(function($rootScope, $state, menuMain){
 
 });
 
-app.factory('menuMain', function($state){
+app.factory('menuMain', function($state) {
 
   var _watchers = [],
       _callWatchers = function() {
@@ -59,7 +62,62 @@ app.factory('menuMain', function($state){
   }
 })
 
-app.directive('navMain', function(menuMain){
+app.factory('aboutAnimation', function($interval) {
+
+  var _watchers = [],
+      _callWatchers = function() {
+        _watchers.forEach(function(watcher){
+          watcher(_text);
+        });
+      },
+      _texts = [
+        'Hello, world!',
+        'I\'m a software Engineer',
+        'I love to code'
+      ],
+      _animation = null,
+      _text = '',
+      _curTextIndex = 0,
+      _curTextCharIndex = 1,
+      _pauseAtEndOfStringDelay = 6,
+      _pauseAtEndOfStringDelayCounter = 0,
+      incrementCurTextIndex = function() {
+        _curTextIndex = (_curTextIndex == _texts.length - 1) ? 0 : _curTextIndex + 1;
+        _curTextCharIndex = 1;
+        _pauseAtEndOfStringDelayCounter = 0;
+        _cursorCounter = 0;
+      },
+      incrementCurTextCharIndex = function() {
+        if(_curTextCharIndex < _texts[_curTextIndex].length) _curTextCharIndex++;
+        if(_curTextCharIndex == _texts[_curTextIndex].length) {
+          (_pauseAtEndOfStringDelayCounter < _pauseAtEndOfStringDelay) ? _pauseAtEndOfStringDelayCounter++ : incrementCurTextIndex();
+        }
+      }
+
+  return {
+    registerWatcher: function(watcher) {
+      _watchers.push(watcher);
+    },
+    start: function() {
+      _animation = $interval(function() {
+        _text = _texts[_curTextIndex].slice(0, _curTextCharIndex);
+        incrementCurTextCharIndex();
+        _callWatchers();
+      }, 200);
+    },
+    stop: function() {
+      $interval.cancel(_animation);
+      _animation = undefined;
+      _text = '';
+      _curTextIndex = 0;
+      _curTextCharIndex = 1;
+      _pauseAtEndOfStringDelay = 6;
+      _pauseAtEndOfStringDelayCounter = 0;
+    }
+  }
+})
+
+app.directive('navMain', function(menuMain) {
   return {
     restrict: 'E',
     replace: true,
@@ -95,18 +153,25 @@ app.directive('navMain', function(menuMain){
   }
 });
 
-app.directive('about', function(){
+app.directive('about', function(aboutAnimation) {
+
   return {
     restrict: 'E',
     replace: true,
     templateUrl: 'templates/about.html',
     link: function($scope) {
 
+      aboutAnimation.registerWatcher(function(text) {
+        $scope.animatedText = text;
+      });
+
+      aboutAnimation.start();
+
     }
   }
 });
 
-app.directive('skills', function(){
+app.directive('skills', function() {
   return {
     restrict: 'E',
     replace: true,
@@ -140,7 +205,7 @@ app.directive('skills', function(){
   }
 });
 
-app.directive('contact', function(){
+app.directive('contact', function() {
   return {
     restrict: 'E',
     replace: true,
